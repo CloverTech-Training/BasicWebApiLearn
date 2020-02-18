@@ -30,11 +30,17 @@ namespace ContosoPets.Api
             services.AddDbContext<ContosoPetsContext>(options =>
                 options.UseInMemoryDatabase("ContosoPets"));
             services.AddControllers();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(name: "default",
+                                template: "{controller=Products}/{action=GetAll}/{id?}");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -42,14 +48,14 @@ namespace ContosoPets.Api
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
-
             app.UseAuthorization();
+            
+            //app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
         }
     }
 }

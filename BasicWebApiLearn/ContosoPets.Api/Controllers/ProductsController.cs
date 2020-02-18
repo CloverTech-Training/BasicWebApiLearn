@@ -8,8 +8,6 @@ using ContosoPets.Api.Models;
 
 namespace ContosoPets.Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
         private readonly ContosoPetsContext _context;
@@ -19,11 +17,9 @@ namespace ContosoPets.Api.Controllers
             _context = context;
         }
 
-        [HttpGet]
         public ActionResult<List<Product>> GetAll() =>
             _context.Products.ToList();
 
-        [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetById(long id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -36,7 +32,6 @@ namespace ContosoPets.Api.Controllers
             return product;
         }
 
-        [HttpPost]
         public async Task<ActionResult<Product>> Create(Product product)
         {
             _context.Products.Add(product);
@@ -45,7 +40,6 @@ namespace ContosoPets.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
 
-        [HttpPut("{id}")]
         public async Task<IActionResult> Update(long id, Product product)
         {
             if (id != product.Id)
@@ -56,10 +50,9 @@ namespace ContosoPets.Api.Controllers
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
-        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -72,7 +65,7 @@ namespace ContosoPets.Api.Controllers
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
     }
 }
