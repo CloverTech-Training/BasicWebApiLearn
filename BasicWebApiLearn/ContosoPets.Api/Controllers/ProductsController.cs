@@ -32,15 +32,15 @@ namespace ContosoPets.Api.Controllers
             return product;
         }
 
-        public async Task<ActionResult<Product>> Create(Product product)
+        public async Task<ActionResult<Product>> Insert([FromBody]Product product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
+            return CreatedAtAction(nameof(GetById), product);
         }
 
-        public async Task<IActionResult> Update(long id, Product product)
+        public async Task<IActionResult> Update(long id, [FromBody]Product product)
         {
             if (id != product.Id)
             {
