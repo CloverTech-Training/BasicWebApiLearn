@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ContosoPets.Api"
+    "\\BasicWebApiLearn",
+    "\\BasicWebApiLearn\\ContosoPets.Api"
   ],
+  "SelectedNode": "\\BasicWebApiLearn\\BasicWebApiLearn.sln",
   "PreviewInSolutionExplorer": false
 }
